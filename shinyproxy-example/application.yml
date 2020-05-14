@@ -1,0 +1,20 @@
+proxy:
+  port: 8080
+  authentication: none
+  hide-navbar: true
+  heartbeat-rate: 10000
+  heartbeat-timeout: 90000
+  landing-page: /app/01_gating
+  container-backend: kubernetes
+  kubernetes:
+    internal-networking: true
+    url: http://localhost:8001
+  specs:
+  - id: 01_gating
+    display-name: Manual Gating Test
+    description: Application which demonstrates the basics of a Shiny app
+    container-cmd: ["R", "-e", "gating::run_app()"]
+    container-image: 537803759952.dkr.ecr.eu-north-1.amazonaws.com/gating:latest
+logging:
+  file:
+    shinyproxy.log

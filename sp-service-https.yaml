@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: shinyproxy
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:eu-north-1:xxxxxxxxxxx:certificate/xxxxxxxxxxxxxxxxxxxxxx" 
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "ssl"
+spec:
+  selector:
+    run: shinyproxy
+  ports:
+  - name: tcp
+    port: 80
+    targetPort: 8080
+  - name: ssl
+    port: 443
+    targetPort: 8080
+  type: LoadBalancer

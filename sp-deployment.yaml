@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shinyproxy
+spec:
+  selector:
+    matchLabels:
+      run: shinyproxy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: shinyproxy
+    spec:
+      containers:
+      - name: shinyproxy
+        image: 537803759952.dkr.ecr.eu-north-1.amazonaws.com/shinyproxy-example:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      - name: kube-proxy-sidecar
+        image: 537803759952.dkr.ecr.eu-north-1.amazonaws.com/kube-proxy-sidecar:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8001
